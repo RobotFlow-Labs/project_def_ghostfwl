@@ -1,0 +1,34 @@
+# Layer 3: Ghost-FWL module serving image
+# Built on anima-serve:jazzy (Layer 2)
+ARG BASE_IMAGE=ghcr.io/robotflow-labs/anima-serve:jazzy
+FROM ${BASE_IMAGE} AS base
+
+# Install module dependencies
+WORKDIR /app
+COPY pyproject.toml uv.lock* .python-version ./
+RUN uv sync --frozen --no-dev --python 3.11 --no-install-project --extra serve 2>/dev/null || \
+    uv pip install --python 3.11 \
+        blosc2 numpy opencv-python-headless pydantic pydantic-settings pyyaml scipy \
+        torch --index-url https://download.pytorch.org/whl/cpu \
+        fastapi uvicorn orjson
+
+# Copy module source
+COPY src/ src/
+COPY configs/ configs/
+RUN uv sync --frozen --python 3.11 2>/dev/null || \
+    uv pip install --python 3.11 -e .
+
+# Runtime
+ENV ANIMA_MODULE_NAME=def-ghostfwl \
+    ANIMA_MODULE_VERSION=0.1.0 \
+    ANIMA_SERVE_PORT=8080 \
+    ANIMA_DEVICE=auto \
+    ANIMA_WEIGHT_FORMAT=auto \
+    ANIMA_WEIGHT_DIR=/data/weights
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+CMD ["uvicorn", "anima_def_ghostfwl.api.app:app", "--host", "0.0.0.0", "--port", "8080"]

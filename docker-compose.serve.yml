@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  ghostfwl-serve:
+    build:
+      context: .
+      dockerfile: Dockerfile.serve
+    env_file: .env.serve
+    ports:
+      - "${ANIMA_SERVE_PORT:-8080}:8080"
+    volumes:
+      - ${ANIMA_WEIGHT_DIR:-./weights}:/data/weights:ro
+      - ${ANIMA_DATA_DIR:-./data}:/data/input:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - serve
+      - api
+    network_mode: host
+    restart: unless-stopped
+
+  ghostfwl-ros2:
+    build:
+      context: .
+      dockerfile: Dockerfile.serve
+    env_file: .env.serve
+    command: ["python", "-m", "anima_def_ghostfwl.ros2.node"]
+    volumes:
+      - ${ANIMA_WEIGHT_DIR:-./weights}:/data/weights:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - ros2
+    network_mode: host
+    restart: unless-stopped
+
+  ghostfwl-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.serve
+    command: ["python", "-c", "from anima_def_ghostfwl.api.app import app; print('API OK')"]
+    profiles:
+      - test
