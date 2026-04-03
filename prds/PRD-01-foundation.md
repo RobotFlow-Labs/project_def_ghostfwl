@@ -2,7 +2,7 @@
 
 > Module: DEF-GHOSTFWL | Priority: P0
 > Depends on: None
-> Status: ⬜ Not started
+> Status: ✅ Complete
 
 ## Objective
 The repository exposes a clean `anima_def_ghostfwl` package with paper-faithful configuration, dataset manifests, and preprocessing utilities that can support both pretraining and supervised training.
@@ -17,11 +17,11 @@ Key requirements from the paper:
 - Peak annotations use four classes: Object, Glass, Ghost, Noise.
 
 ## Acceptance Criteria
-- [ ] Package namespace is standardized on `src/anima_def_ghostfwl/` and top-level metadata no longer references `SHINIGAMI`.
-- [ ] Settings objects encode dataset roots, split manifests, model shapes, and paper hyperparameters.
-- [ ] Data IO can discover voxel `.b2`, annotation `.b2`, and peak `.npy` assets with deterministic split manifests.
-- [ ] Preprocessing reproduces paper crops: top `90`, bottom `90`, front `25`, target `(128,128,256)`.
-- [ ] Test: `uv run pytest tests/test_settings.py tests/test_data_io.py tests/test_preprocess.py -v` passes.
+- [x] Package namespace is standardized on `src/anima_def_ghostfwl/` and top-level metadata no longer references `SHINIGAMI`.
+- [x] Settings objects encode dataset roots, split manifests, model shapes, and paper hyperparameters.
+- [x] Data IO can discover voxel `.b2`, annotation `.b2`, and peak `.npy` assets with deterministic split manifests.
+- [x] Preprocessing reproduces paper crops: top `90`, bottom `90`, front `25`, target `(128,128,256)`.
+- [x] Test: `uv run pytest tests/test_settings.py tests/test_data_io.py tests/test_preprocess.py -v` passes.
 
 ## Files to Create
 

@@ -1,4 +1,4 @@
-# SHINIGAMI — Design & Implementation Checklist
+# DEF-GHOSTFWL — Design & Implementation Checklist
 
 ## Paper: Ghost-FWL: LiDAR Ghost Object Detection
 ## ArXiv: 2603.28224
@@ -8,17 +8,17 @@
 
 ## Phase 1: Scaffold + Verification
 - [x] Project structure created
-- [ ] Paper PDF downloaded to papers/
-- [ ] Paper read and annotated
-- [ ] Reference repo cloned
+- [x] Paper PDF downloaded to papers/
+- [x] Paper read and annotated
+- [x] Reference repo cloned
 - [ ] Reference demo runs successfully
 - [ ] Datasets identified and accessibility confirmed
 - [ ] CLAUDE.md filled with paper-specific details
 - [ ] PRD.md filled with architecture and plan
 
 ## Phase 2: Reproduce
-- [ ] Core model implemented in src/anima_shinigami/
-- [ ] Training pipeline (scripts/train.py)
+- [x] Core model implemented in src/anima_def_ghostfwl/
+- [x] Paper-default training CLI scaffold (`scripts/train_pretrain.py`, `scripts/train_finetune.py`)
 - [ ] Evaluation pipeline (scripts/eval.py)
 - [ ] Metrics match paper (within ±5%)
 - [ ] Dual-compute verified (MLX + CUDA)

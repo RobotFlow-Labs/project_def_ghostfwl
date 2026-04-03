@@ -1,7 +1,7 @@
 # DEF-GHOSTFWL: Ghost-FWL: LiDAR Ghost Object Detection — Implementation PRD
 ## ANIMA Wave-7 Module #12
 
-**Status:** Planning complete, implementation not started
+**Status:** Implementation underway
 **Version:** 0.2
 **Date:** 2026-04-03
 **Paper:** Ghost-FWL: A Large-Scale Full-Waveform LiDAR Dataset for Ghost Detection and Removal
@@ -13,13 +13,13 @@
 
 ## Build Plan — Executable PRDs
 
-> Total PRDs: 7 | Tasks: 23 | Status: 0/23 complete
+> Total PRDs: 7 | Tasks: 23 | Status: 10/23 complete
 
 | # | PRD | Title | Priority | Tasks | Status |
 |---|---|---|---|---|---|
-| 1 | [PRD-01](prds/PRD-01-foundation.md) | Foundation & Config | P0 | 4 | ⬜ |
-| 2 | [PRD-02](prds/PRD-02-core-model.md) | Core Model | P0 | 4 | ⬜ |
-| 3 | [PRD-03](prds/PRD-03-inference.md) | Inference Pipeline | P0 | 3 | ⬜ |
+| 1 | [PRD-01](prds/PRD-01-foundation.md) | Foundation & Config | P0 | 4 | ✅ 4/4 |
+| 2 | [PRD-02](prds/PRD-02-core-model.md) | Core Model | P0 | 4 | ◐ 3/4 |
+| 3 | [PRD-03](prds/PRD-03-inference.md) | Inference Pipeline | P0 | 3 | ✅ 3/3 |
 | 4 | [PRD-04](prds/PRD-04-evaluation.md) | Evaluation | P1 | 3 | ⬜ |
 | 5 | [PRD-05](prds/PRD-05-api-docker.md) | API & Docker | P1 | 3 | ⬜ |
 | 6 | [PRD-06](prds/PRD-06-ros2.md) | ROS2 Integration | P1 | 3 | ⬜ |
@@ -82,18 +82,19 @@ Ghost-FWL addresses a real failure mode in robotics and autonomous driving: ghos
 
 ## 7. Implementation Phases
 
-### Phase 1 — Foundation + Paper Fidelity ⬜
-- [ ] Replace stale `SHINIGAMI` namespace with `DEF-GHOSTFWL`
-- [ ] Encode dataset roots, split manifests, and preprocessing constants
-- [ ] Implement waveform IO and preprocessing tests
+### Phase 1 — Foundation + Paper Fidelity ✅
+- [x] Replace stale `SHINIGAMI` namespace with `DEF-GHOSTFWL`
+- [x] Encode dataset roots, split manifests, and preprocessing constants
+- [x] Implement waveform IO and preprocessing tests
 
-### Phase 2 — Reproduce Core Model ⬜
-- [ ] Implement FWL-MAE pretraining
-- [ ] Implement frozen-encoder classifier
-- [ ] Match paper architecture and hyperparameters
+### Phase 2 — Reproduce Core Model ◐
+- [x] Implement FWL-MAE pretraining
+- [x] Implement frozen-encoder classifier
+- [x] Match paper architecture and hyperparameters
+- [ ] Finish real dataset-backed training loops
 
-### Phase 3 — Inference + Evaluation ⬜
-- [ ] Implement sliding-window inference and ghost removal
+### Phase 3 — Inference + Evaluation ◐
+- [x] Implement sliding-window inference and ghost removal
 - [ ] Reproduce Recall and Ghost Removal Rate
 - [ ] Add SLAM and object-detection benchmark harnesses
 

@@ -2,7 +2,7 @@
 
 > Module: DEF-GHOSTFWL | Priority: P0
 > Depends on: PRD-01
-> Status: ⬜ Not started
+> Status: ◐ In progress
 
 ## Objective
 The repo contains a paper-faithful implementation of FWL-MAE pretraining plus the frozen-encoder ghost-classification model used for denoising.
@@ -22,11 +22,11 @@ Key implementation facts:
 - Finetuning freezes the pretrained encoder and applies a lightweight 2-layer classifier head with focal loss.
 
 ## Acceptance Criteria
-- [ ] FWL-MAE pretrain module reproduces the paper architecture and loss decomposition.
-- [ ] Classifier module consumes the frozen encoder outputs and emits 4-class logits for every `(x, y, t)` location.
+- [x] FWL-MAE pretrain module reproduces the paper architecture and loss decomposition.
+- [x] Classifier module consumes the frozen encoder outputs and emits 4-class logits for every `(x, y, t)` location.
 - [ ] Training loops exist for both pretraining and finetuning with AdamW and paper hyperparameters.
-- [ ] Losses cover `LMSE`, `Lpeak-p`, `Lpeak-a`, `Lpeak-w`, and focal loss with the paper alpha/gamma values.
-- [ ] Test: `uv run pytest tests/test_fwl_mae.py tests/test_classifier.py tests/test_losses.py tests/test_training_config.py -v` passes.
+- [x] Losses cover `LMSE`, `Lpeak-p`, `Lpeak-a`, `Lpeak-w`, and focal loss with the paper alpha/gamma values.
+- [x] Test: `uv run pytest tests/test_fwl_mae.py tests/test_classifier.py tests/test_losses.py tests/test_training_config.py -v` passes.
 
 ## Files to Create
 

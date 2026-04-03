@@ -2,7 +2,7 @@
 
 > Module: DEF-GHOSTFWL | Priority: P0
 > Depends on: PRD-01, PRD-02
-> Status: ⬜ Not started
+> Status: ✅ Complete
 
 ## Objective
 Checkpointed Ghost-FWL models can denoise new FWL tensors through the paper’s inference procedure and emit cleaned point clouds plus class volumes.
@@ -12,11 +12,11 @@ The paper runs inference with the same `(128,128,256)` input size as training, s
 Paper reference: appendix D.2 "Ghost Detection and Removal", §4.2 "Ghost Detection and Removal".
 
 ## Acceptance Criteria
-- [ ] Inference reproduces paper preprocessing and deterministic sliding-window coverage.
-- [ ] Predicted classes are assigned only when max probability exceeds `0.5`; otherwise mark as undefined/noise-safe state.
-- [ ] Ghost-labeled peaks are removable from waveform / point cloud outputs.
-- [ ] CLI can load a checkpoint and write denoised artifacts plus optional debug volumes.
-- [ ] Test: `uv run pytest tests/test_inference.py tests/test_postprocess.py tests/test_cli_infer.py -v` passes.
+- [x] Inference reproduces paper preprocessing and deterministic sliding-window coverage.
+- [x] Predicted classes are assigned only when max probability exceeds `0.5`; otherwise mark as undefined/noise-safe state.
+- [x] Ghost-labeled peaks are removable from waveform / point cloud outputs.
+- [x] CLI can load a checkpoint and write denoised artifacts plus optional debug volumes.
+- [x] Test: `uv run pytest tests/test_inference.py tests/test_postprocess.py tests/test_cli_infer.py -v` passes.
 
 ## Files to Create
 

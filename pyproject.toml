@@ -3,20 +3,79 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "anima-shinigami"
+name = "anima-def-ghostfwl"
 version = "0.1.0"
-description = "ANIMA SHINIGAMI — Ghost-FWL: LiDAR Ghost Object Detection"
-requires-python = ">=3.10"
+description = "ANIMA DEF-GHOSTFWL — Ghost-FWL: LiDAR Ghost Object Detection"
+readme = "PRD.md"
+requires-python = ">=3.11,<3.12"
 dependencies = [
-    "torch>=2.0",
-    "numpy",
-    "opencv-python",
+    "blosc2>=3.7.0",
+    "numpy>=1.26",
+    "opencv-python-headless>=4.10",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "pyyaml>=6.0.2",
+    "torch>=2.5.1",
 ]
 
 [project.optional-dependencies]
-mlx = ["mlx>=0.10", "mlx-nn"]
-dev = ["pytest", "ruff", "mypy"]
+model = [
+    "einops>=0.8",
+    "scikit-learn>=1.5",
+    "scipy>=1.13",
+    "timm>=1.0.19",
+    "wandb>=0.19.11",
+]
+mlx = ["mlx>=0.29"]
+serve = [
+    "click>=8.1",
+    "fastapi>=0.115",
+    "orjson>=3.10",
+    "rich>=14.0",
+    "uvicorn>=0.34",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.11",
+    "pytest>=8.3",
+    "pytest-cov>=5.0",
+    "ruff>=0.11.8",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anima_def_ghostfwl"]
+
+[tool.uv]
+python-preference = "only-managed"
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", marker = "sys_platform == 'darwin'" },
+    { index = "pytorch-cu121", marker = "sys_platform == 'linux'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py311"
+exclude = [
+    ".git",
+    ".ruff_cache",
+    ".venv",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,6 +1,6 @@
 [project]
-name = "anima-shinigami"
-codename = "SHINIGAMI"
+name = "anima-def-ghostfwl"
+codename = "DEF-GHOSTFWL"
 functional_name = "DEF-ghostfwl"
 wave = 7
 paper_arxiv = "2603.28224"
@@ -10,8 +10,23 @@ backend = "auto"  # "mlx", "cuda", "auto"
 precision = "fp32"
 
 [data]
-shared_volume = "/Volumes/AIFlowDev/RobotFlowLabs/datasets"
-repos_volume = "/Volumes/AIFlowDev/RobotFlowLabs/repos/wave7"
+data_root = "/Volumes/AIFlowDev/RobotFlowLabs/datasets"
+models_root = "/Volumes/AIFlowDev/RobotFlowLabs/models"
+repos_root = "/Volumes/AIFlowDev/RobotFlowLabs/datasets/repos"
+artifacts_root = "/Volumes/AIFlowDev/RobotFlowLabs/datasets/artifacts"
+dataset_root = "/Volumes/AIFlowDev/RobotFlowLabs/datasets/ghost_fwl/ghost_dataset"
+pretrain_root = "/Volumes/AIFlowDev/RobotFlowLabs/datasets/ghost_fwl/mae_dataset"
+checkpoint_root = "/Volumes/AIFlowDev/RobotFlowLabs/models/ghost_fwl"
+
+[paper]
+raw_shape_xyz = [400, 512, 700]
+model_shape_hwt = [128, 128, 256]
+crop_top_bins = 90
+crop_bottom_bins = 90
+crop_front_bins = 25
+pretrain_mask_ratio = 0.70
+train_scenes = ["001", "003", "004", "005", "006", "008", "010"]
+test_scenes = ["002", "007", "009"]
 
 [hardware]
 zed2i = true

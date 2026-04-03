@@ -1,6 +1,7 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
 WORKDIR /app
-COPY pyproject.toml .
-RUN pip install uv && uv pip install -e ".[dev]" --system
+COPY pyproject.toml uv.lock .python-version ./
+RUN pip install uv && uv sync --frozen --no-dev --python 3.11 --no-install-project
 COPY . .
-CMD ["python", "-m", "anima_shinigami"]
+RUN uv sync --frozen --python 3.11
+CMD ["python", "-c", "from anima_def_ghostfwl import __version__; print(__version__)"]
