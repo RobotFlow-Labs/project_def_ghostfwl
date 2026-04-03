@@ -1,29 +1,28 @@
-# ANIMA SHINIGAMI — DEF-ghostfwl
+# DEF-GHOSTFWL — ANIMA Module
 
-> Wave-7 | Japanese Mythology Theme | Module #12
+> **Ghost-FWL: LiDAR Ghost Object Detection**
+> Paper: [arXiv:2603.28224](https://arxiv.org/abs/2603.28224)
 
-## Paper
-**Ghost-FWL: LiDAR Ghost Object Detection**
-- ArXiv: https://arxiv.org/abs/2603.28224
-- Repo: https://github.com/keio-csg/Ghost-FWL
+Part of the [ANIMA Intelligence Compiler Suite](https://github.com/RobotFlow-Labs) by AIFLOW LABS LIMITED.
 
-## Stack Fit
+## Domain
 Defense
 
+## Status
+- [ ] Paper read + ASSETS.md created
+- [ ] PRD-01 through PRD-07
+- [ ] Training pipeline
+- [ ] GPU training
+- [ ] Export: pth + safetensors + ONNX + TRT fp16 + TRT fp32
+- [ ] Push to HuggingFace
+- [ ] Docker serving
+
 ## Quick Start
-
 ```bash
-# Install dependencies
-uv pip install -e ".[dev]"
-
-# Run with MLX (Mac)
-ANIMA_BACKEND=mlx python -m anima_shinigami
-
-# Run with CUDA (GPU server)
-ANIMA_BACKEND=cuda python -m anima_shinigami
+cd project_def_ghostfwl
+uv venv .venv --python python3.11 && uv sync
+uv run pytest tests/ -v
 ```
 
-## Status
-- Phase: Scaffold
-- MVP: 5%
-- Demo-ready: No
+## License
+MIT — AIFLOW LABS LIMITED
