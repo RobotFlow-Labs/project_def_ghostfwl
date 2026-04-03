@@ -56,7 +56,6 @@ class DenoiseService:
 
         points = labels_to_point_cloud(labels)
         ghost_count = int((labels == 3).sum())
-        total = int(labels.size)
 
         class_counts = {}
         for cls_id, cls_name in LABEL_ID_TO_NAME.items():

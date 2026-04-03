@@ -62,8 +62,8 @@ def generate_report(
         "# Ghost-FWL Benchmark Report",
         "",
         "## Denoising Metrics",
-        f"| Metric | Value | Paper Target | Gate |",
-        f"|--------|-------|-------------|------|",
+        "| Metric | Value | Paper Target | Gate |",
+        "|--------|-------|-------------|------|",
         f"| Recall | {result.recall:.4f} | {t.recall} | {'PASS' if gates['recall'] else 'FAIL'} |",
         f"| Ghost Removal Rate | {result.ghost_removal_rate:.4f} | {t.ghost_removal_rate} | "
         f"{'PASS' if gates['ghost_removal_rate'] else 'FAIL'} |",
@@ -71,8 +71,8 @@ def generate_report(
         f"{'PASS' if gates['ghost_fp_rate'] else 'FAIL'} |",
         "",
         "## SLAM Metrics",
-        f"| Metric | Value | Paper Target | Gate |",
-        f"|--------|-------|-------------|------|",
+        "| Metric | Value | Paper Target | Gate |",
+        "|--------|-------|-------------|------|",
         f"| ATE | {result.slam_ate:.4f} | {t.slam_ate} | "
         f"{'PASS' if gates['slam_ate'] else 'FAIL'} |",
         f"| RTE | {result.slam_rte:.4f} | {t.slam_rte} | "

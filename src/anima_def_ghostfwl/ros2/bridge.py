@@ -13,7 +13,6 @@ import numpy as np
 
 from anima_def_ghostfwl.ros2.messages import (
     DenoisedCloudMsg,
-    WaveformVoxelMsg,
     encode_voxel,
 )
 from anima_def_ghostfwl.ros2.node import GhostFilterNode

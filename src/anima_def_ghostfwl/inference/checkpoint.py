@@ -63,7 +63,7 @@ def load_predictor(
 ) -> LoadedPredictor:
     """Load a frozen-encoder classifier checkpoint deterministically."""
 
-    checkpoint = torch.load(Path(checkpoint_path), map_location="cpu")
+    checkpoint = torch.load(Path(checkpoint_path), map_location="cpu", weights_only=False)
     state_dict = checkpoint.get("model_state_dict", checkpoint.get("state_dict", checkpoint))
     config = _coerce_config(checkpoint.get("config"))
     model = FrozenEncoderGhostClassifier(config=config, freeze_encoder=False)

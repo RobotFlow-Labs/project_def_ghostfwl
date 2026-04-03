@@ -34,7 +34,9 @@ class DenoisedCloudMsg:
     total_count: int = 0
 
 
-def encode_voxel(volume: np.ndarray, *, frame_id: str = "", timestamp_ns: int = 0) -> WaveformVoxelMsg:
+def encode_voxel(
+    volume: np.ndarray, *, frame_id: str = "", timestamp_ns: int = 0
+) -> WaveformVoxelMsg:
     """Encode a numpy volume into a WaveformVoxelMsg."""
     return WaveformVoxelMsg(
         frame_id=frame_id,

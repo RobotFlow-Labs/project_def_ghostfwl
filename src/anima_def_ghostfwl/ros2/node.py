@@ -8,10 +8,7 @@ not available.
 from __future__ import annotations
 
 import os
-import time
 from pathlib import Path
-
-import numpy as np
 
 from anima_def_ghostfwl.inference.checkpoint import load_predictor
 from anima_def_ghostfwl.inference.postprocess import labels_to_point_cloud

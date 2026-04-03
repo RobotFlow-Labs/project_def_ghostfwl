@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import os
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 import numpy as np
@@ -18,23 +20,26 @@ from anima_def_ghostfwl.api.schemas import (
 from anima_def_ghostfwl.api.service import DenoiseService
 from anima_def_ghostfwl.version import __version__
 
-app = FastAPI(
-    title="Ghost-FWL Denoising API",
-    description="LiDAR ghost object detection and removal",
-    version=__version__,
-)
-
 _service = DenoiseService(
     checkpoint_path=Path(os.environ.get("ANIMA_CHECKPOINT_PATH", "")),
     device=os.environ.get("ANIMA_DEVICE", "cpu"),
 )
 
 
-@app.on_event("startup")
-async def startup() -> None:
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     checkpoint = os.environ.get("ANIMA_CHECKPOINT_PATH")
     if checkpoint and Path(checkpoint).exists():
         _service.load()
+    yield
+
+
+app = FastAPI(
+    title="Ghost-FWL Denoising API",
+    description="LiDAR ghost object detection and removal",
+    version=__version__,
+    lifespan=lifespan,
+)
 
 
 @app.get("/health", response_model=HealthResponse)

@@ -43,8 +43,8 @@ def export_safetensors(
     """Export model weights in safetensors format."""
     try:
         from safetensors.torch import save_file
-    except ImportError:
-        raise ImportError("safetensors package required: uv pip install safetensors")
+    except ImportError as err:
+        raise ImportError("safetensors package required: uv pip install safetensors") from err
 
     output_dir.mkdir(parents=True, exist_ok=True)
     path = output_dir / filename
