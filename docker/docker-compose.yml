@@ -1,11 +1,15 @@
 version: "3.8"
 services:
-  shinigami:
-    build: .
+  ghostfwl:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     volumes:
-      - /Volumes/AIFlowDev/RobotFlowLabs/datasets:/data:ro
+      - /mnt/forge-data/datasets:/data:ro
+      - /mnt/forge-data/models:/models:ro
     environment:
       - ANIMA_BACKEND=cuda
+      - ANIMA_MODULE_NAME=def-ghostfwl
     deploy:
       resources:
         reservations:

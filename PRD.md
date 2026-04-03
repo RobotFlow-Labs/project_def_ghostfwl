@@ -1,8 +1,8 @@
 # DEF-GHOSTFWL: Ghost-FWL: LiDAR Ghost Object Detection — Implementation PRD
 ## ANIMA Wave-7 Module #12
 
-**Status:** Implementation underway
-**Version:** 0.2
+**Status:** Build complete — awaiting dataset assets for training
+**Version:** 0.3
 **Date:** 2026-04-03
 **Paper:** Ghost-FWL: A Large-Scale Full-Waveform LiDAR Dataset for Ghost Detection and Removal
 **Paper Link:** https://arxiv.org/abs/2603.28224
@@ -13,17 +13,17 @@
 
 ## Build Plan — Executable PRDs
 
-> Total PRDs: 7 | Tasks: 23 | Status: 10/23 complete
+> Total PRDs: 7 | Tasks: 23 | Status: 23/23 complete
 
 | # | PRD | Title | Priority | Tasks | Status |
 |---|---|---|---|---|---|
 | 1 | [PRD-01](prds/PRD-01-foundation.md) | Foundation & Config | P0 | 4 | ✅ 4/4 |
-| 2 | [PRD-02](prds/PRD-02-core-model.md) | Core Model | P0 | 4 | ◐ 3/4 |
+| 2 | [PRD-02](prds/PRD-02-core-model.md) | Core Model | P0 | 4 | ✅ 4/4 |
 | 3 | [PRD-03](prds/PRD-03-inference.md) | Inference Pipeline | P0 | 3 | ✅ 3/3 |
-| 4 | [PRD-04](prds/PRD-04-evaluation.md) | Evaluation | P1 | 3 | ⬜ |
-| 5 | [PRD-05](prds/PRD-05-api-docker.md) | API & Docker | P1 | 3 | ⬜ |
-| 6 | [PRD-06](prds/PRD-06-ros2.md) | ROS2 Integration | P1 | 3 | ⬜ |
-| 7 | [PRD-07](prds/PRD-07-production.md) | Production | P2 | 3 | ⬜ |
+| 4 | [PRD-04](prds/PRD-04-evaluation.md) | Evaluation | P1 | 3 | ✅ 3/3 |
+| 5 | [PRD-05](prds/PRD-05-api-docker.md) | API & Docker | P1 | 3 | ✅ 3/3 |
+| 6 | [PRD-06](prds/PRD-06-ros2.md) | ROS2 Integration | P1 | 3 | ✅ 3/3 |
+| 7 | [PRD-07](prds/PRD-07-production.md) | Production | P2 | 3 | ✅ 3/3 |
 
 ## 1. Executive Summary
 Ghost-FWL addresses a real failure mode in robotics and autonomous driving: ghost points created by multi-path LiDAR reflections through glass and reflective surfaces. The paper contributes both the first large-scale mobile full-waveform LiDAR dataset for this task and a paper baseline built around a transformer classifier with FWL-MAE self-supervised pretraining. For ANIMA, the correct strategy is to reproduce the paper pipeline first, including waveform preprocessing, split policy, frozen-encoder classification, and the denoising metrics that enable downstream SLAM and object-detection gains. Only after paper-faithful reproduction should we adapt the module for our own LiDAR stack and deployment surfaces.

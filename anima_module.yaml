@@ -1,0 +1,81 @@
+name: def-ghostfwl
+version: 0.1.0
+codename: DEF-GHOSTFWL
+functional_name: DEF-ghostfwl
+domain: defense
+wave: 7
+
+paper:
+  title: "Ghost-FWL: A Large-Scale Full-Waveform LiDAR Dataset for Ghost Detection and Removal"
+  arxiv: "2603.28224"
+  url: "https://arxiv.org/abs/2603.28224"
+  repo: "https://github.com/Keio-CSG/Ghost-FWL"
+
+capabilities:
+  - ghost_detection
+  - lidar_denoising
+  - point_cloud_filtering
+  - waveform_classification
+
+api:
+  framework: fastapi
+  port: 8080
+  endpoints:
+    - path: /health
+      method: GET
+      description: Health check
+    - path: /ready
+      method: GET
+      description: Readiness probe
+    - path: /predict
+      method: POST
+      description: Ghost detection and removal
+
+docker:
+  base_image: ghcr.io/robotflow-labs/anima-serve:jazzy
+  dockerfile: Dockerfile.serve
+  compose: docker-compose.serve.yml
+  profiles:
+    - serve
+    - ros2
+    - api
+    - test
+
+ros2:
+  node_name: ghost_filter_node
+  package: anima_def_ghostfwl
+  subscriptions:
+    - topic: /lidar/waveform
+      msg_type: WaveformVoxelMsg
+  publications:
+    - topic: /lidar/denoised
+      msg_type: sensor_msgs/PointCloud2
+  launch_file: launch/def_ghostfwl.launch.py
+
+hf:
+  org: ilessio-aiflowlab
+  repo: project_def_ghostfwl
+  checkpoint_repo: project_def_ghostfwl-checkpoint
+
+weights:
+  format_priority:
+    - trt_fp16
+    - trt_fp32
+    - onnx
+    - safetensors
+    - pth
+  hf_repo: ilessio-aiflowlab/project_def_ghostfwl
+
+metrics:
+  paper_targets:
+    recall: 0.751
+    ghost_removal_rate: 0.918
+    ghost_fp_rate: 0.0134
+    slam_ate: 0.245
+    slam_rte: 0.245
+  release_gates:
+    min_recall: 0.73
+    min_ghost_removal_rate: 0.90
+    max_ghost_fp_rate: 0.02
+    max_slam_ate: 0.30
+    max_slam_rte: 0.30

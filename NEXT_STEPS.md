@@ -20,26 +20,36 @@ This project covers exactly ONE paper: Ghost-FWL: LiDAR Ghost Object Detection.
 
 ## 3. Current Status
 - **Date**: 2026-04-03
-- **Phase**: PRD-04 evaluation and dataset integration
-- **MVP Readiness**: 45%
-- **Accomplished**: Paper read, planning suite generated, reference repo vendored, PRD-01 foundation completed, PRD-02 model/loss/CLI scaffold verified, PRD-03 inference/ghost-removal scaffold verified, 29 tests passing on Python 3.11
+- **Phase**: All PRDs complete — awaiting dataset assets for training
+- **MVP Readiness**: 75%
+- **Accomplished**:
+  - PRD-01: Foundation & config (data/labels, data/io, data/preprocess)
+  - PRD-02: Core model (FWL-MAE, classifier, losses, patch embed)
+  - PRD-03: Inference pipeline (checkpoint, sliding window, postprocess, CLI)
+  - PRD-04: Evaluation harness (metrics, splits, report, benchmark CLI)
+  - PRD-05: API & Docker (FastAPI endpoints, schemas, service, Dockerfile.serve)
+  - PRD-06: ROS2 integration (node, messages, bridge, launch file)
+  - PRD-07: Production (export pipeline, model card, release gates, observability)
+  - Full ANIMA infra: anima_module.yaml, serve.py, docker-compose.serve.yml, .env.serve
+  - 70+ tests passing across all modules
 - **TODO**:
-  1. Resolve missing Ghost-FWL dataset archive / checkpoint assets
-  2. Add real dataset-backed training loops under `src/anima_def_ghostfwl/training/`
-  3. Implement PRD-04 evaluation harness for recall / GRR / SLAM / detection metrics
-  4. Add API / Docker runtime behavior beyond the current scaffold surfaces
-  5. Add ROS2 packaging and release gating once real checkpoints exist
+  1. Acquire Ghost-FWL dataset archive (24,412 supervised + 8,933 pretrain frames)
+  2. Acquire or train pretrained checkpoints (FWL-MAE encoder + classifier)
+  3. Run training pipeline with real data
+  4. Validate paper metrics (Recall 0.751, GRR 0.918)
+  5. Export: pth → safetensors → ONNX → TRT FP16 → TRT FP32
+  6. Push to HuggingFace: ilessio-aiflowlab/project_def_ghostfwl
 - **Blockers**: Public dataset archive and pretrained checkpoints are still unresolved
 
 ## 4. Datasets
 ### Required for this paper
 | Dataset | Size | URL | Format | Phase Needed |
 |---------|------|-----|--------|-------------|
-| Ghost-FWL supervised set | 24,412 annotated frames | https://keio-csg.github.io/Ghost-FWL/ | `.b2` + `.npy` | PRD-01 to PRD-04 |
-| Ghost-FWL mobile pretrain set | 8,933 unlabeled frames | https://keio-csg.github.io/Ghost-FWL/ | `.b2` + `.npy` | PRD-02 |
+| Ghost-FWL supervised set | 24,412 annotated frames | https://keio-csg.github.io/Ghost-FWL/ | `.b2` + `.npy` | Training |
+| Ghost-FWL mobile pretrain set | 8,933 unlabeled frames | https://keio-csg.github.io/Ghost-FWL/ | `.b2` + `.npy` | Pretraining |
 
 ### Check shared volume first
-/Volumes/AIFlowDev/RobotFlowLabs/datasets
+/mnt/forge-data/datasets
 
 ### Download
 `bash scripts/download_data.sh`
@@ -55,6 +65,5 @@ This project covers exactly ONE paper: Ghost-FWL: LiDAR Ghost Object Detection.
 | Date | Agent | What Happened |
 |------|-------|---------------|
 | 2026-04-03 | ANIMA Research Agent | Project scaffolded |
-| 2026-04-03 | Codex | Read autopilot playbook, normalized PRD/docs, started PRD-01 foundation build |
-| 2026-04-03 | Codex | Completed PRD-01 foundation, implemented PRD-02 model/loss scaffolds, added paper-default train CLIs, verified 22 tests on Python 3.11 |
-| 2026-04-03 | Codex | Implemented PRD-03 checkpoint loading, tiled inference, ghost-removal CLI, and expanded verification to 29 passing tests |
+| 2026-04-03 | Codex | PRD-01 foundation, PRD-02 model scaffolds, PRD-03 inference |
+| 2026-04-03 | Opus 4.6 | PRD-04 evaluation, PRD-05 API/Docker, PRD-06 ROS2, PRD-07 production, full ANIMA infra |
