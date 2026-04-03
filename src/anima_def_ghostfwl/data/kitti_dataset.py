@@ -19,8 +19,6 @@ import torch
 from torch import Tensor
 from torch.utils.data import Dataset
 
-from .kitti_voxelize import VOXEL_CONFIG
-
 
 class KITTIVoxelDataset(Dataset):
     """Dataset that loads pre-voxelized KITTI scans from cache.

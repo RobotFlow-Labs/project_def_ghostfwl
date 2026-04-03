@@ -58,7 +58,9 @@ class DecoderBlock(nn.Module):
         x = self.up(x)
         # Handle size mismatch from pooling
         if x.shape != skip.shape:
-            x = torch.nn.functional.interpolate(x, size=skip.shape[2:], mode="trilinear", align_corners=False)
+            x = torch.nn.functional.interpolate(
+                x, size=skip.shape[2:], mode="trilinear", align_corners=False
+            )
         x = torch.cat([x, skip], dim=1)
         return self.conv2(self.conv1(x))
 

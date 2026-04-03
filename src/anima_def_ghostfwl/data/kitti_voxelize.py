@@ -16,7 +16,6 @@ import numpy as np
 import torch
 from torch import Tensor
 
-
 # KITTI LiDAR voxel grid configuration
 VOXEL_CONFIG = {
     "x_range": (-51.2, 51.2),

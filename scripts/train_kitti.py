@@ -11,11 +11,10 @@ from __future__ import annotations
 import argparse
 import json
 import math
-import os
 import time
+import tomllib
 from pathlib import Path
 
-import tomllib
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -72,7 +71,7 @@ class WarmupCosineScheduler:
                 self.total_steps - self.warmup_steps, 1
             )
             scale = 0.5 * (1 + math.cos(math.pi * progress))
-        for pg, base_lr in zip(self.optimizer.param_groups, self.base_lrs):
+        for pg, base_lr in zip(self.optimizer.param_groups, self.base_lrs, strict=True):
             pg["lr"] = max(self.min_lr, base_lr * scale)
 
     def state_dict(self):
@@ -129,7 +128,8 @@ def find_batch_size(model: nn.Module, device: torch.device, target_util: float =
 
             peak = torch.cuda.max_memory_allocated(device)
             util = peak / total_memory
-            print(f"  [BATCH] bs={mid}: {peak / 1e9:.2f}GB / {total_memory / 1e9:.2f}GB = {util:.1%}")
+            print(f"  [BATCH] bs={mid}: {peak / 1e9:.2f}GB / "
+                  f"{total_memory / 1e9:.2f}GB = {util:.1%}")
 
             if util <= target_util:
                 best_bs = mid
@@ -259,14 +259,17 @@ def train(config: dict, *, dry_run: bool = False, resume: str | None = None) -> 
     # Print training header
     print(f"\n[TRAIN] epochs={train_cfg['epochs']}, lr={train_cfg['learning_rate']}, "
           f"optimizer=AdamW, scheduler=cosine_warmup")
-    print(f"[TRAIN] total_steps={total_steps}, save_every={ckpt_cfg.get('save_every_n_steps', 200)}")
+    save_n = ckpt_cfg.get('save_every_n_steps', 200)
+    print(f"[TRAIN] total_steps={total_steps}, save_every={save_n}")
 
     # Check VRAM at start
     if device.type == "cuda":
         torch.cuda.reset_peak_memory_stats(device)
         mem_used = torch.cuda.memory_allocated(device)
         mem_total = torch.cuda.get_device_properties(0).total_memory
-        print(f"[VRAM] start: {mem_used / 1e9:.2f}GB / {mem_total / 1e9:.2f}GB = {mem_used / mem_total:.1%}")
+        vram_pct = mem_used / mem_total
+        print(f"[VRAM] start: {mem_used / 1e9:.2f}GB / "
+              f"{mem_total / 1e9:.2f}GB = {vram_pct:.1%}")
 
     # Step 7: Training loop
     model = torch.compile(model)
